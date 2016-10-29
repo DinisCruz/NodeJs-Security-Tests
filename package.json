@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-security-tests",
+  "version": "0.0.1",
+  "description": "NodeJs Security Tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DinisCruz/NodeJs-Security-Tests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DinisCruz/NodeJs-Security-Tests/issues"
+  },
+  "homepage": "https://github.com/DinisCruz/NodeJs-Security-Tests#readme"
+}
