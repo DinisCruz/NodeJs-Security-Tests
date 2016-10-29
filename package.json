@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/DinisCruz/NodeJs-Security-Tests#readme",
   "dependencies": {
+    "coffee-script": "^1.11.1",
     "fluentnode": "^0.6.4",
     "mocha": "^3.1.2"
   }
