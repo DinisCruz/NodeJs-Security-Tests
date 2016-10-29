@@ -59,11 +59,41 @@ describe 'Test-Array-Slice.coffee', ->
     a2.size().assert_Is 100                                 # a2 is still intact
 
 
+  it 'addrof(object) - not vulnerable in node', ->
+    addrof = (object)->
+      a = [];
+      for i in [0...100]
+        a.push(i + 0.1337);   # Array must be of type ArrayWithDoubles
 
+      hax = valueOf: ()->
+        a.length = 0;
+        a = [object];
+        return 4;
 
-#    var a = [];
-#    for (var i = 0; i < 100; i++)
-#  a.push(i + 0.123);
-#
-#  var b = a.slice(0, {valueOf: function() { a.length = 0; return 10; }});
-#  // b = [0.123,1.123,2.12199579146e-313,0,0,0,0,0,0,0]
+      b = a.slice(0, hax);
+      #return Int64.fromDouble(b[3]);  # this method doesn't seem to exist in nodejs
+      b.str().assert_Is ',,,'
+      return b[3]
+
+    obj = some : 'value'
+
+    assert_Is_Undefined addrof obj
+
+  it 'fakeobj - not vulnerable in node', ->
+    fakeobj = (addr) ->                        # created with http://js2.coffee/
+      a = []
+      i = 0
+      while i < 100
+        a.push {}                              # Array must be of type ArrayWithContiguous
+        i++
+
+      #addr = addr.asDouble()
+      hax = valueOf: ->
+        a.length = 0
+        a = [ addr ]
+        4
+      a.slice(0, hax)[3]
+
+    obj = some : 'value'
+
+    assert_Is_Undefined  console.log fakeobj obj
